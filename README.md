@@ -1,6 +1,6 @@
 # Disclaimer
 
-AiTranslate sends the text you choose to translate, and optionally the channel, server, and category names used for language detection, to the external AI provider you configure. Those requests are subject to that provider's terms and privacy policy and may incur charges. AiTranslate is not affiliated with any provider.
+AiTranslate sends the text you choose to translate to the external AI provider you configure. Conversation context is enabled by default and includes up to six earlier loaded messages from the same channel, capped at 400 characters each. It can be disabled in settings. Optional language detection can also send channel, server, and category names. Those requests are subject to that provider's terms and privacy policy and may incur charges. AiTranslate is not affiliated with any provider.
 
 # AiTranslate
 
@@ -9,6 +9,8 @@ AiTranslate sends the text you choose to translate, and optionally the channel, 
 This version is maintained by Ylris and is based on [Sehatan/AiTranslate-Vencord](https://github.com/Sehatan/AiTranslate-Vencord). It adapts the language settings UI to current Vencord, defaults to incoming Simplified Chinese and outgoing Chinese-to-English translation, and cancels sending when an outgoing translation fails.
 
 Outgoing translations open an editable preview with the original text. The translation editor receives focus. Press Enter or click “确认发送” to send the reviewed translation. Shift+Enter inserts a newline. Enter during IME composition completes the input. Cancel or close the preview to keep the original draft.
+
+D&D terminology guidance is enabled by default. It preserves dice expressions and numerical claims, uses bilingual spell names in Chinese, and resolves shorthand only when supported by the source or earlier conversation context. Both terminology guidance and conversation context can be disabled in settings.
 
 AI-powered message translation for Vencord, using any OpenAI-compatible chat API. Translate incoming messages, your own outgoing messages, visible chat text, or new messages as they arrive.
 

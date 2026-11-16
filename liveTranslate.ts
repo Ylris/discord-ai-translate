@@ -61,7 +61,7 @@ function pumpQueue() {
 
         activeTranslations++;
 
-        translate("received", getMessageContent(message), undefined, { silent: true })
+        translate("received", getMessageContent(message), undefined, { silent: true, channelId: message.channel_id, messageId: message.id })
             .then(result => handleTranslate(message.id, result))
             .catch(() => { /* live failures are silent; the next message still translates */ })
             .finally(() => {

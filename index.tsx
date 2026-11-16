@@ -49,7 +49,7 @@ const messageCtxPatch: NavContextMenuPatchCallback = (children, { message }: { m
                     if (!tryStartTranslation(message.id)) return;
 
                     try {
-                        const trans = await translate("received", content);
+                        const trans = await translate("received", content, undefined, { channelId: message.channel_id, messageId: message.id });
                         handleTranslate(message.id, trans);
                     } finally {
                         finishTranslation(message.id);
@@ -123,7 +123,7 @@ export default definePlugin({
                     if (!tryStartTranslation(message.id)) return;
 
                     try {
-                        const trans = await translate("received", content);
+                        const trans = await translate("received", content, undefined, { channelId: message.channel_id, messageId: message.id });
                         handleTranslate(message.id, trans);
                     } finally {
                         finishTranslation(message.id);
@@ -190,7 +190,7 @@ export default definePlugin({
             clearTimeout(tooltipTimeout);
             tooltipTimeout = setTimeout(() => setShouldShowTranslateEnabledTooltip?.(false), 2000);
 
-            const trans = await translate("sent", message.content, targetLanguage);
+            const trans = await translate("sent", message.content, targetLanguage, { channelId });
             const languageName = GoogleLanguages[targetLanguage as keyof typeof GoogleLanguages] ?? targetLanguage;
             const confirmedText = await previewOutgoingTranslation(message.content, trans.text, languageName);
             if (confirmedText === null) return { cancel: true };

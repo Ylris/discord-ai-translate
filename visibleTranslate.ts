@@ -158,7 +158,7 @@ export async function translateVisibleMessages(options?: { quiet?: boolean; }) {
                     "received",
                     getMessageContent(message),
                     undefined,
-                    { silent: true }
+                    { silent: true, channelId: message.channel_id, messageId: message.id }
                 );
 
                 handleTranslate(message.id, result);

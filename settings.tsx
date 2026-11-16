@@ -98,6 +98,18 @@ export const settings = definePluginSettings({
         description: "Ask reasoning models not to think before translating. Uses the provider's native switch where available and a direct prompt instruction otherwise",
         default: false
     },
+    dndTranslation: {
+        type: OptionType.BOOLEAN,
+        displayName: "D&D 术语翻译",
+        description: "使用 D&D 术语解释法术环阶、生命骰和调整值，中文译文保留英文法术名",
+        default: true
+    },
+    translationContext: {
+        type: OptionType.BOOLEAN,
+        displayName: "参考同频道上下文",
+        description: "将当前消息之前最多 6 条已加载的同频道文字消息（每条最多 400 字符）发送给模型，辅助理解缩写和省略内容，会增加输入 token",
+        default: true
+    },
     testConnection: {
         type: OptionType.COMPONENT,
         component: () => <TestConnectionButton />
