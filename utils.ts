@@ -411,13 +411,16 @@ async function translateText(text: string, sourceLang: string, targetLang: strin
     const dndInstructions = settings.store.dndTranslation
         ? [
             "For Dungeons & Dragons discussions, use established tabletop RPG terminology and natural player-to-player language.",
-            "In Chinese, spell slot = 法术位; casting a spell at 2nd level = 用二环法术位施放; spellcasting ability modifier = 施法属性调整值; modifier/mod = 调整值; Hit Dice = 生命骰; hit points/HP = 生命值.",
-            "Chinese output MUST keep recognized spell names bilingual, using exactly Healing Word（治愈真言） and Arcane Vigor（奥术活力）.",
+            "Use this bidirectional glossary: spell slot = 法术位; casting a spell at 2nd level = 用二环法术位施放; spellcasting ability modifier = 施法属性调整值; modifier/mod = 调整值; Hit Dice = 生命骰; hit points/HP = 生命值; Healing Word = 治愈真言; Arcane Vigor = 奥术活力.",
+            "Recognize informal Chinese wording such as 回血 and 血 as healing and hit points. Resolve obvious spelling errors such as 奥数活力 to Arcane Vigor when the D&D spell context makes the intent clear.",
+            targetLang.startsWith("zh")
+                ? "For this Chinese target, keep recognized spell names bilingual, using exactly Healing Word（治愈真言） and Arcane Vigor（奥术活力）. Expand mod to 施法属性调整值 when the source or context identifies a spellcasting ability modifier. Render 2dx as 掷两颗生命骰的结果 when the source or context establishes Hit Dice healing."
+                : "",
+            targetLang === "en"
+                ? "For this English target, write natural English D&D player chat using the standard English spell and rules names. Output Healing Word and Arcane Vigor without Chinese glosses or Chinese parenthetical names. If the source gives an English name plus its Chinese translation, output the English name only once. Render 两颗生命骰 as the total rolled on two Hit Dice when describing a healing amount. Use spellcasting ability modifier for 施法属性调整值, spend Hit Dice for 消耗生命骰, and hit points for 血."
+                : "",
             "When the text compares two spells clearly identified in context, name both spells explicitly in the translation.",
-            "Expand mod to 施法属性调整值 when the source or context identifies a spellcasting ability modifier.",
-            "In a Hit Dice healing comparison, 2dx means the result of rolling two dice of the relevant Hit Die size; translate it naturally as 掷两颗生命骰的结果 when this is established by the source or context.",
             "Preserve actual dice formulas such as 4d4 exactly, along with quantities, costs and comparisons.",
-            "In English translations, use English spell names once and natural phrasing such as 'the total rolled on two Hit Dice' for healing amounts.",
             "Resolve shorthand and omitted spell names only when the source or context supports the meaning; otherwise preserve the ambiguity.",
             "Do not invent a spell, bonus, formula or rule. Do not change the author's numerical claims to match a remembered rules edition."
         ].join(" ")

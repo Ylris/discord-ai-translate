@@ -12,6 +12,8 @@ Outgoing translations open an editable preview with the original text. The trans
 
 D&D terminology guidance is enabled by default. It preserves dice expressions and numerical claims, uses bilingual spell names in Chinese, and resolves shorthand only when supported by the source or earlier conversation context. Both terminology guidance and conversation context can be disabled in settings.
 
+English output uses standard English spell and rules names, with duplicate Chinese glosses removed. The glossary covers Chinese-only spell names and contextually clear spelling mistakes as well as bilingual input.
+
 AI-powered message translation for Vencord, using any OpenAI-compatible chat API. Translate incoming messages, your own outgoing messages, visible chat text, or new messages as they arrive.
 
 > AiTranslate is a **Vencord userplugin**. It is not a BetterDiscord plugin and cannot be installed through the normal Vencord installer.
