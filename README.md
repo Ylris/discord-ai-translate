@@ -8,7 +8,7 @@ AiTranslate sends the text you choose to translate, and optionally the channel, 
 
 This version is maintained by Ylris and is based on [Sehatan/AiTranslate-Vencord](https://github.com/Sehatan/AiTranslate-Vencord). It adapts the language settings UI to current Vencord, defaults to incoming Simplified Chinese and outgoing Chinese-to-English translation, and cancels sending when an outgoing translation fails.
 
-Outgoing translations open an editable preview with the original text. Click “确认发送” to send the reviewed translation. Cancel or close the preview to keep the original draft.
+Outgoing translations open an editable preview with the original text. The translation editor receives focus. Press Enter or click “确认发送” to send the reviewed translation. Shift+Enter inserts a newline. Enter during IME composition completes the input. Cancel or close the preview to keep the original draft.
 
 AI-powered message translation for Vencord, using any OpenAI-compatible chat API. Translate incoming messages, your own outgoing messages, visible chat text, or new messages as they arrive.
 

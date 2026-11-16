@@ -11,6 +11,7 @@ import { Paragraph } from "@components/Paragraph";
 import { Margins } from "@utils/margins";
 import { RenderModalProps } from "@vencord/discord-types";
 import { Modal, openModal, TextArea, useState } from "@webpack/common";
+import type { KeyboardEvent } from "react";
 
 interface PreviewProps {
     modalProps: RenderModalProps;
@@ -29,10 +30,18 @@ const OutgoingPreview = ErrorBoundary.wrap(function OutgoingPreview({ modalProps
         modalProps.onClose();
     }
 
+    function handleKeyDown(event: KeyboardEvent<HTMLElement>) {
+        if (event.key !== "Enter" || event.shiftKey || event.nativeEvent.isComposing || event.nativeEvent.keyCode === 229) return;
+        event.preventDefault();
+        event.stopPropagation();
+        if (!event.repeat) confirm();
+    }
+
     return (
         <Modal
             {...modalProps}
             title="确认翻译后发送"
+            subtitle="Enter 发送 · Shift+Enter 换行"
             actions={[
                 { text: "取消", variant: "secondary", onClick: modalProps.onClose },
                 { text: "确认发送", variant: "primary", onClick: confirm, disabled: !text.trim() }
@@ -43,9 +52,9 @@ const OutgoingPreview = ErrorBoundary.wrap(function OutgoingPreview({ modalProps
                     <Heading className={Margins.bottom8}>原文</Heading>
                     <Paragraph className="vc-aitrans-preview-original">{original}</Paragraph>
                 </section>
-                <section>
+                <section onKeyDownCapture={handleKeyDown}>
                     <Heading className={Margins.bottom8}>译文（{targetLanguage}，可修改）</Heading>
-                    <TextArea value={text} onChange={setText} autosize />
+                    <TextArea value={text} onChange={setText} autosize autoFocus />
                 </section>
             </Flex>
         </Modal>
