@@ -18,6 +18,7 @@ import { Message } from "@vencord/discord-types";
 import { ChannelStore, GuildStore, Menu } from "@webpack/common";
 
 import { detectChannelLanguage, GoogleLanguages, normalizeLanguageCode } from "./languages";
+import { previewOutgoingTranslation } from "./OutgoingPreview";
 import { settings } from "./settings";
 import { setOutgoingTranslateTooltip, setShouldShowTranslateEnabledTooltip, TranslateChatBarIcon, TranslateIcon } from "./TranslateIcon";
 import { handleTranslate, TranslationAccessory } from "./TranslationAccessory";
@@ -70,6 +71,7 @@ const messageCtxPatch: NavContextMenuPatchCallback = (children, { message }: { m
 };
 
 let tooltipTimeout: any;
+const pendingOutgoingChannels = new Set<string>();
 
 export default definePlugin({
     name: "AiTranslate",
@@ -180,15 +182,23 @@ export default definePlugin({
 
         if (!targetLanguage) return;
 
-        setShouldShowTranslateEnabledTooltip?.(true);
-        clearTimeout(tooltipTimeout);
-        tooltipTimeout = setTimeout(() => setShouldShowTranslateEnabledTooltip?.(false), 2000);
+        if (pendingOutgoingChannels.has(channelId)) return { cancel: true };
+        pendingOutgoingChannels.add(channelId);
 
         try {
+            setShouldShowTranslateEnabledTooltip?.(true);
+            clearTimeout(tooltipTimeout);
+            tooltipTimeout = setTimeout(() => setShouldShowTranslateEnabledTooltip?.(false), 2000);
+
             const trans = await translate("sent", message.content, targetLanguage);
-            message.content = trans.text;
+            const languageName = GoogleLanguages[targetLanguage as keyof typeof GoogleLanguages] ?? targetLanguage;
+            const confirmedText = await previewOutgoingTranslation(message.content, trans.text, languageName);
+            if (confirmedText === null) return { cancel: true };
+            message.content = confirmedText;
         } catch {
             return { cancel: true };
+        } finally {
+            pendingOutgoingChannels.delete(channelId);
         }
     }
 });

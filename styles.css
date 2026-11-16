@@ -100,3 +100,10 @@
 .vc-aitrans-token-usage {
     cursor: help;
 }
+
+.vc-aitrans-preview-original {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    max-height: 160px;
+    overflow-y: auto;
+}
