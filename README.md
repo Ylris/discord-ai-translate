@@ -4,6 +4,10 @@ AiTranslate sends the text you choose to translate, and optionally the channel, 
 
 # AiTranslate
 
+[中文安装与使用说明](README.zh-CN.md)
+
+This version is maintained by Ylris and is based on [Sehatan/AiTranslate-Vencord](https://github.com/Sehatan/AiTranslate-Vencord). It adapts the language settings UI to current Vencord, defaults to incoming Simplified Chinese and outgoing Chinese-to-English translation, and cancels sending when an outgoing translation fails.
+
 AI-powered message translation for Vencord, using any OpenAI-compatible chat API. Translate incoming messages, your own outgoing messages, visible chat text, or new messages as they arrive.
 
 > AiTranslate is a **Vencord userplugin**. It is not a BetterDiscord plugin and cannot be installed through the normal Vencord installer.
@@ -38,17 +42,17 @@ AI-powered message translation for Vencord, using any OpenAI-compatible chat API
 3. Clone this repository:
 
    ```sh
-   git clone https://github.com/Sehatan/AiTranslate-Vencord.git
+   git clone https://github.com/Ylris/discord-ai-translate.git AiTranslate
    ```
 
-   This creates `src/userplugins/AiTranslate-Vencord/` with `index.tsx` at its root.
+   This creates `src/userplugins/AiTranslate/` with `index.tsx` at its root.
 
 4. Return to the Vencord folder and build:
 
    ```sh
    cd ../..
    pnpm install --frozen-lockfile
-   pnpm build
+   pnpm build --dev
    pnpm inject
    ```
 

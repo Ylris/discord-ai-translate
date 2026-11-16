@@ -184,7 +184,11 @@ export default definePlugin({
         clearTimeout(tooltipTimeout);
         tooltipTimeout = setTimeout(() => setShouldShowTranslateEnabledTooltip?.(false), 2000);
 
-        const trans = await translate("sent", message.content, targetLanguage);
-        message.content = trans.text;
+        try {
+            const trans = await translate("sent", message.content, targetLanguage);
+            message.content = trans.text;
+        } catch {
+            return { cancel: true };
+        }
     }
 });

@@ -49,13 +49,13 @@ export const settings = definePluginSettings({
     receivedOutput: {
         type: OptionType.STRING,
         description: "Language incoming messages are translated to",
-        default: "en",
+        default: "zh-CN",
         hidden: true
     },
     sentInput: {
         type: OptionType.STRING,
         description: "Language your messages are translated from",
-        default: "auto",
+        default: "zh-CN",
         hidden: true
     },
     sentOutput: {
@@ -151,7 +151,7 @@ export const settings = definePluginSettings({
         type: OptionType.BOOLEAN,
         displayName: "Translate outgoing messages",
         description: "Translate messages you send from your set language to the outgoing language you choose. If Auto Translate is also on and the channel name contains a language, that channel language is used instead",
-        default: false
+        default: true
     },
     showAutoTranslateTooltip: {
         type: OptionType.BOOLEAN,
